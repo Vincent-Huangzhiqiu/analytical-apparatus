@@ -1,3 +1,4 @@
+import random
 def time_to_milliseconds(time_str):
     # 将时间字符串转换为时间戳（以毫秒为单位）
     h, m, s = map(float, time_str.split(':'))
@@ -23,13 +24,39 @@ def calculate_slope(X, Y):
         raise ValueError("X和Y列表长度不一致")
     
     for i in range(1, len(X)):
-        slope = (Y[i] - Y[i-1]) / (X[i] - X[i-1])
+        if X[i] - X[i-1] == 0:
+            slope = 0
+        else:
+            slope = (Y[i] - Y[i-1]) / (X[i] - X[i-1])
         slopes.append(slope)
     return slopes
 
-# Example usage:
-X = [1, 2, 3, 4, 5]
-Y = [2, 4, 6, 8, 10]
+
+def find_start_end_pairs(X, slope_list, target_k):
+    start_end_pairs = []
+    start_index = None
+    for i in range(len(slope_list)):
+        if start_index is None:
+            if slope_list[i] > target_k:
+                start_index = i
+        else:
+            if slope_list[i] > (-1 * target_k) and slope_list[i] <= 0:
+                end_index = i
+                start_end_pairs.append((start_index, end_index))
+                start_index = None
+    return start_end_pairs
+
+X = []
+Y = []
+for i in range(100):
+    temp = random.randint(1,100)
+    temp2 = random.randint(1,100)
+    X.append(temp)
+    Y.append(temp2)
 
 slope_list = calculate_slope(X, Y)
-print("Slope list:", slope_list)
+temp = find_start_end_pairs(X, slope_list, 10)
+# for item in temp:
+#     print(slope_list[item[0]],slope_list[item[1]])
+#     print(slope_list[item[0]-1],slope_list[item[1]-1])
+# print(temp)

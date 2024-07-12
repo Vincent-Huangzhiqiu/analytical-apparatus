@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import decimal
-from utils import get_relative_time, read_file, calculate_slope
+from utils import get_relative_time, read_file, calculate_slope, find_start_end_pairs
 target_machine = "SDPR1"
 interval = 0.2  # 每个时间点的间隔为200毫秒
 file_path = 'data.txt'
@@ -40,6 +40,11 @@ def get_X_and_Y(file_path, target_machine, interval):
 if __name__ == "__main__":
     X, Y = get_X_and_Y(file_path, target_machine, interval)
     slope_list = calculate_slope(X, Y)
+    temp = find_start_end_pairs(X, slope_list, 10)
+    for item in temp:
+        print(slope_list[item[0]],slope_list[item[1]])
+        print(slope_list[item[0]-1],slope_list[item[1]-1])
+    print(temp)
     plt.scatter(X, Y, color='blue', label='Data Points')
     plt.title('Scatter Plot of Generated Data Points')
     plt.xlabel('Index')
