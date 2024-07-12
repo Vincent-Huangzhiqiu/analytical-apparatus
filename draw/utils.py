@@ -15,3 +15,21 @@ def read_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.readlines()
     return content
+
+def calculate_slope(X, Y):
+    # 计算斜率k
+    slopes = []
+    if len(X) != len(Y):
+        raise ValueError("X和Y列表长度不一致")
+    
+    for i in range(1, len(X)):
+        slope = (Y[i] - Y[i-1]) / (X[i] - X[i-1])
+        slopes.append(slope)
+    return slopes
+
+# Example usage:
+X = [1, 2, 3, 4, 5]
+Y = [2, 4, 6, 8, 10]
+
+slope_list = calculate_slope(X, Y)
+print("Slope list:", slope_list)
