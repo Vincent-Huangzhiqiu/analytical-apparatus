@@ -40,11 +40,11 @@ def get_X_and_Y(file_path, target_machine, interval):
 if __name__ == "__main__":
     X, Y = get_X_and_Y(file_path, target_machine, interval)
     slope_list = calculate_slope(X, Y)
-    temp = find_start_end_pairs(X, slope_list, 10)
-    for item in temp:
+    start_end_pairs = find_start_end_pairs(X, slope_list, 10)
+    for item in start_end_pairs:
         print(slope_list[item[0]],slope_list[item[1]])
         print(slope_list[item[0]-1],slope_list[item[1]-1])
-    print(temp)
+    print(start_end_pairs)
     plt.scatter(X, Y, color='blue', label='Data Points')
     plt.title('Scatter Plot of Generated Data Points')
     plt.xlabel('Index')
